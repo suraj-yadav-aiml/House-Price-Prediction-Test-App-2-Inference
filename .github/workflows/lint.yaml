@@ -1,0 +1,34 @@
+# GitHub Action Workflow
+
+name: Lint Workflow
+
+on:
+    push:
+        branches: ["main"]
+    pull_request:
+        branches: ["main"]
+    workflow_dispatch:
+
+permissions:
+    contents: read
+    
+jobs:
+
+    lint:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+            
+            - name: List project directory contents
+              run: ls -a 
+
+            - name: Build Application
+              uses: ./.github/actions/build-application
+
+            - name: Lint with Ruff
+              run: poetry run make check
+            
+            
+            
+              
